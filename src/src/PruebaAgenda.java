@@ -14,6 +14,7 @@ public class PruebaAgenda {
         agendaDePrueba.anyadirItem(clara,new Item("Comida Favorita","Sushi"));
 
         System.out.println(agendaDePrueba.listadoCompleto());
+
         String salida="";
         for(Contacto c:agendaDePrueba.listadoContactos()){
             salida+=c.info()+"(";
