@@ -43,6 +43,6 @@ public class Item {
     }
 
     public String info(){
-        return nombreDelItem+": "+dato;
+        return nombreDelItem+":"+dato;
     }
 }

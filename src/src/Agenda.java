@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Agenda {
     private String nombre;
-    Map<Contacto, ArrayList<Item>>listaDeContactos=new TreeMap<>();
+    private Map<Contacto, ArrayList<Item>>listaDeContactos=new TreeMap<>();
 
     Agenda(String nombre){
         this.nombre=nombre;
@@ -29,12 +29,20 @@ public class Agenda {
         return listaDeContactos.get(c);
     }
 
-    public String listado(){
+    public List<Contacto> listadoContactos(){
+        List<Contacto> contactosEnLaLista=new ArrayList<>();
+        for (Contacto c:listaDeContactos.keySet()){
+            contactosEnLaLista.add(c);
+        }
+        return contactosEnLaLista;
+    }
+
+    public String listadoCompleto(){
         String salida="";
         for (Contacto c:listaDeContactos.keySet()) {
             salida+=c.info()+": ";
             for(Item i:listaItems(c)){
-                salida+=i.info()+", ";
+                salida+=i.info()+" ";
             }
             salida+="\n";
         }
@@ -48,6 +56,17 @@ public class Agenda {
         }catch (NullPointerException npe){
                 throw new NullPointerException("El contacto no existe");
         }
+    }
+
+    public List<Contacto> listaInformacion(String i){
+        Item itemAMirar=new Item(i,"");
+        List<Contacto> contactosConElItem=new ArrayList<>();
+        for (Contacto c:listaDeContactos.keySet()){
+            if(listaDeContactos.get(c).contains(itemAMirar)){
+                contactosConElItem.add(c);
+            }
+        }
+        return contactosConElItem;
     }
 
 }
