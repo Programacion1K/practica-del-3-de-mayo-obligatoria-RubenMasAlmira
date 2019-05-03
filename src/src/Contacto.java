@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class Contacto {
+public class Contacto implements Comparable<Contacto>{
     private final String nombre;
     Contacto(String nombre){
         this.nombre=nombre.substring(0,1).toUpperCase()+nombre.substring(1).toLowerCase();
@@ -37,4 +37,8 @@ public class Contacto {
         System.out.println(contacto1);
     }
 
+    @Override
+    public int compareTo(Contacto o) {
+        return this.nombre.compareTo(o.nombre);
+    }
 }

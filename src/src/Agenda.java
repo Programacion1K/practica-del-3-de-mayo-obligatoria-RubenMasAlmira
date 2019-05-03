@@ -1,19 +1,20 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class Agenda {
-    Map<Contacto, ArrayList<Item>>listaDeContactos=new HashMap<>();
+    private String nombre;
+    Map<Contacto, ArrayList<Item>>listaDeContactos=new TreeMap<>();
 
-    Agenda(){}
-    Agenda(Contacto contacto,Item item){
-        listaDeContactos.put(contacto,new ArrayList<>());
-        listaDeContactos.get(contacto).add(item);
+    Agenda(String nombre){
+        this.nombre=nombre;
     }
-    Agenda(Contacto contacto,ArrayList<Item> listaDeItems){
-        listaDeContactos.put(contacto,listaDeItems);
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public void anyadirContacto(Contacto nuevoContacto){
@@ -24,7 +25,29 @@ public class Agenda {
         listaDeContactos.put(nuevoContacto,listaDeItems);
     }
 
-    public void anyadirItem(Contacto contacto,Item nuevoItem){
-        listaDeContactos.get(contacto).add(nuevoItem);
+    public List<Item> listaItems(Contacto c){
+        return listaDeContactos.get(c);
     }
+
+    public String listado(){
+        String salida="";
+        for (Contacto c:listaDeContactos.keySet()) {
+            salida+=c.info()+": ";
+            for(Item i:listaItems(c)){
+                salida+=i.info()+", ";
+            }
+            salida+="\n";
+        }
+        return salida;
+    }
+
+
+    public void anyadirItem(Contacto contacto,Item nuevoItem){
+        try {
+            listaDeContactos.get(contacto).add(nuevoItem);
+        }catch (NullPointerException npe){
+                throw new NullPointerException("El contacto no existe");
+        }
+    }
+
 }
